@@ -1,0 +1,48 @@
+# Local Claude Code settings (per-machine, not for upstream)
+.claude/settings.local.json
+.claude/.credentials.json
+.claude/projects/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials.json
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node (in case scripts/ adds tooling later)
+node_modules/
+npm-debug.log*
+
+# Logs
+*.log
+logs/
+
+# Build / dist
+dist/
+build/
+*.tgz

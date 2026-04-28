@@ -1,0 +1,17 @@
+{
+  "name": "skill-radar-marketplace",
+  "owner": { "name": "Roni-quant" },
+  "metadata": {
+    "description": "Lean skill triage for Claude Code",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "skill-radar",
+      "source": "./",
+      "description": "Fires skills on real triggers, stays silent on noise.",
+      "version": "0.1.0",
+      "strict": true
+    }
+  ]
+}

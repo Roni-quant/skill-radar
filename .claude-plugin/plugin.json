@@ -1,0 +1,10 @@
+{
+  "name": "skill-radar",
+  "description": "Lean signal-driven skill triage for Claude Code. Fires skills on real triggers, stays silent on noise.",
+  "version": "0.1.0",
+  "author": { "name": "Roni" },
+  "homepage": "https://github.com/Roni-quant/skill-radar",
+  "repository": "https://github.com/Roni-quant/skill-radar",
+  "license": "MIT",
+  "keywords": ["claude-code", "skills", "skill-router", "context-engineering", "lean"]
+}
