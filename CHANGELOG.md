@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `ROADMAP.md` — extracted from README with v0.2/v0.3/v1.0 plans plus out-of-scope notes.
+- README "Support" section linking to issues.
+- README "Coexistence" callout in Compatibility section.
+
+### Changed
+- README: inlined paddo.dev "Controllability Problem" reference into Why; removed duplicate Credits entry.
+- README: replaced inline mini-examples with cross-link to Examples section.
+- README comparison table: renamed "Body length" → "SKILL.md size" for clearer signal.
+- README: replaced inline Roadmap section with link to `ROADMAP.md`.
+
 ## [0.1.0] - 2026-04-28
 
 ### Added

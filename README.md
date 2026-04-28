@@ -19,7 +19,7 @@
 
 ## Why
 
-- **Triage, not paranoia.** Upstream `using-superpowers` enforces "1% chance → invoke." That's a false-positive engine. `skill-radar` swaps it for an explicit Trigger Taxonomy.
+- **Triage, not paranoia.** Upstream `using-superpowers` enforces "1% chance → invoke." That's a false-positive engine — see ["The Controllability Problem"](https://paddo.dev/blog/claude-skills-controllability-problem/) for the full case. `skill-radar` swaps it for an explicit Trigger Taxonomy.
 - **Silent on noise.** Single-file edits, lookups, status checks: no skill, no narration, no preamble.
 - **Mode-aware.** Terse / caveman / quiet workflows skip the forced `Announce: Using X` line.
 - **Subagent-safe.** Re-states the priority hierarchy in dispatched prompts to close the [obra/superpowers#237](https://github.com/obra/superpowers/issues/237) injection gap.
@@ -54,35 +54,17 @@ That's the whole product. Three lines of input → three different routing decis
 
 ## How it works
 
-Basic workflow:
+Internally, every user message goes through this loop:
 
 1. User sends a message.
 2. `skill-radar` matches the message against its Trigger Taxonomy.
 3. **Match** → invoke the indicated skill, then act.
 4. **No match** → act direct. No skill load, no announcement.
-5. If invoked skill turns out to be wrong fit mid-task → say so once, abort, continue direct.
+5. If an invoked skill turns out to be a wrong fit mid-task → say so once, abort, continue direct.
 6. Heavyweight rigid skills (TDD, debugging) get a one-line announce; everything else stays silent in terse modes.
 7. Subagents inherit a re-stated priority hierarchy in their dispatch prompt.
 
-### Examples
-
-**Feature build:**
-```
-User: Build a CSV export feature for the trades table.
-→ skill-radar matches "build" → invokes brainstorming → writing-plans
-```
-
-**Bug fix:**
-```
-User: Fix the off-by-one in line 42.
-→ skill-radar matches "fix" → invokes systematic-debugging
-```
-
-**Trivial edit:**
-```
-User: Rename decision_id to trade_id in trades.py.
-→ no taxonomy match → direct edit, no skill
-```
+For full transcripts of each routing decision in real sessions, see [Examples](#examples).
 
 ## Comparison
 
@@ -91,7 +73,7 @@ User: Rename decision_id to trade_id in trades.py.
 | Trigger rule | "1% chance → invoke" | Explicit taxonomy match |
 | No-skill cases | Implicit / discouraged | Explicit list |
 | Mode awareness | Forced narration | Respects terse/caveman |
-| Body length | ~117 lines | ~50 lines |
+| SKILL.md size | ~117 lines | ~50 lines |
 | Subagent injection | Documented gap (#237) | Re-states priority |
 | Description style | Workflow summary risk | Triggers only |
 
@@ -112,7 +94,9 @@ Full discussion in [`docs/philosophy.md`](docs/philosophy.md).
 
 ## Compatibility
 
-`skill-radar` coexists with upstream `using-superpowers`. To prefer `skill-radar` globally, add to your `~/.claude/CLAUDE.md`:
+> **Coexistence:** `skill-radar` is a drop-in alternative to upstream `using-superpowers`, not a replacement that breaks it. Both can be installed simultaneously — pick one as the active triage layer in your global `CLAUDE.md`.
+
+To prefer `skill-radar` globally, add to your `~/.claude/CLAUDE.md`:
 
 ```markdown
 ## Skill triage
@@ -121,10 +105,11 @@ Use `skill-radar` for skill invocation decisions. Do not invoke `using-superpowe
 
 ## Roadmap
 
-- **v0.1** — core skill + 5 pressure tests + marketplace entry. (current)
-- **v0.2** — `scripts/analyze-transcripts.py` for skill-fire telemetry from `~/.claude/projects/*/transcripts`.
-- **v0.3** — `skill-radar-debug` companion: prepends every invocation with `[skill-radar: matched <signal> → <skill>]`.
-- **v1.0** — Anthropic plugin marketplace submission.
+See [`ROADMAP.md`](ROADMAP.md) for v0.2, v0.3, v1.0 plans and out-of-scope notes.
+
+## Support
+
+Questions, bug reports, taxonomy gaps: [open an issue](https://github.com/Roni-quant/skill-radar/issues).
 
 ## Contributing
 
@@ -135,7 +120,6 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md). Short version: edits to `Trigger Taxon
 - [obra/superpowers](https://github.com/obra/superpowers) — built the foundation we lean on.
 - [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) — marketplace.json shape.
 - [anthropics/skills](https://github.com/anthropics/skills) — single-repo plugin+marketplace pattern.
-- [Claude Skills: The Controllability Problem](https://paddo.dev/blog/claude-skills-controllability-problem/) — triage stance.
 - [obra/superpowers#237](https://github.com/obra/superpowers/issues/237) — subagent injection gap.
 - `superpowers:writing-skills` — description-drift fix, TDD-for-skills methodology.
 
