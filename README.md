@@ -10,6 +10,10 @@
 [![GitHub stars](https://img.shields.io/github/stars/Roni-quant/skill-radar?style=social)](https://github.com/Roni-quant/skill-radar)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
+<p align="center">
+  <img src="assets/demo.gif" alt="skill-radar demo: same rename prompt, upstream over-fires four skills, skill-radar edits direct" width="900">
+</p>
+
 ## What you get
 
 - **Explicit Trigger Taxonomy** — skills fire on real signals, not "1% chance → invoke."
