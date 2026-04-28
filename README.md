@@ -1,11 +1,21 @@
 # skill-radar
 
+**Trigger-driven skill invocation for Claude Code. Fewer false positives, no forced narration, subagent-safe.**
+
 > A lean alternative to `using-superpowers` — fire skills on signal, not on every keystroke.
 
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/Roni-quant/skill-radar/releases)
+[![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-8b5cf6.svg)](https://docs.claude.com/en/docs/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/Roni-quant/skill-radar?style=social)](https://github.com/Roni-quant/skill-radar)
-[![Last commit](https://img.shields.io/github/last-commit/Roni-quant/skill-radar)](https://github.com/Roni-quant/skill-radar/commits/main)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+## What you get
+
+- **Explicit Trigger Taxonomy** — skills fire on real signals, not "1% chance → invoke."
+- **No-skill list** — single-file edits, lookups, and trivial fixes stay direct.
+- **Mode-aware announce** — silent in terse/caveman modes; one-line for heavyweight skills only.
+- **Subagent priority injection** — re-states the user > skills > default hierarchy in dispatched prompts (closes [obra/superpowers#237](https://github.com/obra/superpowers/issues/237)).
 
 ## Why
 
@@ -28,11 +38,19 @@ git clone https://github.com/Roni-quant/skill-radar ~/.claude/skills-src/skill-r
 ln -s ~/.claude/skills-src/skill-radar/skills/skill-radar ~/.claude/skills/skill-radar
 ```
 
-### Codex
-Clone to `~/.agents/skills/skill-radar`.
+> Codex / Gemini install paths are tracked for v0.2 — see [Roadmap](#roadmap).
 
-### Gemini
-Placeholder — see `docs/install-gemini.md` (v0.2).
+## Try it
+
+Once installed, send any of these to Claude Code and watch what `skill-radar` decides:
+
+| You say | skill-radar does |
+|---|---|
+| `Build a CSV export feature for the trades table.` | Matches **"build"** → invokes `brainstorming` → `writing-plans`. |
+| `Fix the off-by-one in line 42.` | Matches **"fix"** → invokes `systematic-debugging`. |
+| `Rename decision_id to trade_id in trades.py.` | **No match** → direct edit. No skill, no narration. |
+
+That's the whole product. Three lines of input → three different routing decisions, no over-firing, no forced preamble.
 
 ## How it works
 
